@@ -1,64 +1,69 @@
-import { Cart, Category, Find, Home, My } from '@nutui/icons-react-taro';
-import { Tabbar } from '@nutui/nutui-react-taro';
-import { useContext, useState } from 'react';
+import { CoverImage, CoverView } from '@tarojs/components';
 import Taro from '@tarojs/taro';
+import { useContext, useState } from 'react';
 import UserContext from '../UserContext';
 import './index.scss';
 
-export default function index() {
+const CustomTabBar = () => {
 
   const { selectedTab, setSelectedTab } = useContext(UserContext);
 
-  const iconSize = { width: 12, height: 12 };
   const [tabData, setTabData] = useState({
     list: [
       {
-        id: 0,
-        icon: <Home {...iconSize} />,
-        text: '首页',
-        url: '/pages/index/index',
+        pagePath: '/pages/index/index',
+        selectedIconPath: '../images/tabbar_home_on.png',
+        iconPath: '../images/tabbar_home.png',
+        text: '首页'
       },
       {
-        id: 1,
-        icon: <Category {...iconSize} />,
-        text: '分类',
-        url: '/pages/cate/index',
+        pagePath: '/pages/cate/index',
+        selectedIconPath: '../images/tabbar_cate_on.png',
+        iconPath: '../images/tabbar_cate.png',
+        text: '分类'
       },
       {
-        id: 2,
-        icon: <Find {...iconSize} />,
-        text: '发现',
-        url: '/pages/hot/index',
+        pagePath: '/pages/hot/index',
+        selectedIconPath: '../images/hot_selected.png',
+        iconPath: '../images/hot.png',
+        text: '热门'
       },
       {
-        id: 3,
-        icon: <Cart {...iconSize} />,
-        text: '购物车',
-        url: '/pages/cart/index',
+        pagePath: '/pages/cart/index',
+        selectedIconPath: '../images/tabbar_cart_on.png',
+        iconPath: '../images/tabbar_cart.png',
+        text: '购物车'
       },
       {
-        id: 4,
-        icon: <My {...iconSize} />,
-        text: '我的',
-        url: '/pages/my/index',
-      },
+        pagePath: '/pages/my/index',
+        selectedIconPath: '../images/tabbar_my_on.png',
+        iconPath: '../images/tabbar_my.png',
+        text: '个人中心'
+      }
     ]
   });
 
-  const onSwitch = (e) => {
-    setSelectedTab(e)
+  const onSwitch = (index) => {
+    setSelectedTab(index)
     Taro.switchTab({
-      url: tabData.list[e].url
+      url: tabData.list[index].pagePath
     })
   }
 
   return (
-    <Tabbar value={selectedTab} onSwitch={onSwitch} >
-      {tabData.list.map(item => {
+    <CoverView className='tab-bar'>
+      {tabData.list.map((item, index) => {
         return (
-          <Tabbar.Item title={item.text} key={item.id} icon={item.icon} />
+          <CoverView key={index} className='tab-bar-item'
+            style={index === 2 ? { height: '63px' } : {}}
+            onClick={onSwitch.bind(this, index)}>
+            <CoverImage src={selectedTab === index ? item.selectedIconPath : item.iconPath} />
+            <CoverView style={{ color: selectedTab === index ? '#ed6c00' : "666" }}>{item.text}</CoverView>
+          </CoverView>
         )
       })}
-    </Tabbar>
+    </CoverView>
   )
 }
+
+export default CustomTabBar;

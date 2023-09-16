@@ -22,13 +22,13 @@ export default function index() {
         id: 1,
         icon: <Category width={12} height={12} />,
         text: '分类',
-        url: 'pages/cate/indexe',
+        url: 'pages/cate/index',
       },
       {
         id: 2,
         icon: <Find width={12} height={12} />,
         text: '发现',
-        url: 'pages/hot/indexe',
+        url: 'pages/hot/index',
       },
       {
         id: 3,
@@ -47,27 +47,9 @@ export default function index() {
 
   const onSwitch = (e) => {
     setSelectedTab(e)
-    if (e == 0) {
-      Taro.switchTab({
-        url: '/pages/index/index'
-      })
-    } else if (e == 1) {
-      Taro.switchTab({
-        url: '/pages/cate/index'
-      })
-    } else if (e == 2) {
-      Taro.switchTab({
-        url: '/pages/hot/index'
-      })
-    } else if (e == 3) {
-      Taro.switchTab({
-        url: '/pages/cart/index'
-      })
-    } else if (e == 4) {
-      Taro.switchTab({
-        url: '/pages/my/index'
-      })
-    }
+    Taro.switchTab({
+      url: '/' + tabData.list[e].url
+    })
   }
 
   return (

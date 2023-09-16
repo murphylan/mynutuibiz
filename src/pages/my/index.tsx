@@ -1,20 +1,20 @@
-import { View } from '@tarojs/components'
+import { useMemo } from 'react'
 import Taro, { useDidShow } from '@tarojs/taro'
-import { useMemo, useState } from 'react'
-import type CustomTabBar from '../../custom-tab-bar'
-import './index.scss'
+import { View, Text } from '@tarojs/components'
 
-const Index = () => {
+import type CustomTabBar from '../../custom-tab-bar'
+
+export default function Index () {
   const page = useMemo(() => Taro.getCurrentInstance().page, [])
 
   useDidShow(() => {
     const tabbar = Taro.getTabBar<CustomTabBar>(page)
-    tabbar?.setSelected(0)
+    tabbar?.setSelected(4)
   })
+
   return (
     <View className='index'>
-      <View className='header-title'>项目计划</View>
+      <Text>我是个人中心！</Text>
     </View>
   )
 }
-export default Index;

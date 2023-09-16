@@ -1,75 +1,84 @@
-import { Component } from 'react'
-import Taro from '@tarojs/taro'
-import { CoverView, CoverImage } from '@tarojs/components'
+import { Cart, Category, Find, Home, My } from '@nutui/icons-react-taro';
+import { Tabbar } from '@nutui/nutui-react-taro';
+import { useContext, useState } from 'react';
 
-import './index.scss'
+import UserContext from '../UserContext';
+import './index.scss';
+import Taro from '@tarojs/taro';
 
-export default class Index extends Component {
-  state = {
-    selected: 0,
-    color: '#000000',
-    selectedColor: '#DC143C',
+export default function index() {
+
+  const { selectedTab, setSelectedTab } = useContext(UserContext);
+
+  const [tabData, setTabData] = useState({
     list: [
       {
-        pagePath: '/pages/index/index',
-        selectedIconPath: '../images/tabbar_home_on.png',
-        iconPath: '../images/tabbar_home.png',
-        text: '首页'
+        id: 0,
+        icon: <Home width={12} height={12} />,
+        text: '首页',
+        url: 'pages/index/index',
       },
       {
-        pagePath: '/pages/cate/index',
-        selectedIconPath: '../images/tabbar_cate_on.png',
-        iconPath: '../images/tabbar_cate.png',
-        text: '分类'
+        id: 1,
+        icon: <Category width={12} height={12} />,
+        text: '分类',
+        url: 'pages/cate/indexe',
       },
       {
-        pagePath: '/pages/hot/index',
-        selectedIconPath: '../images/hot_selected.png',
-        iconPath: '../images/hot.png',
-        text: '热门'
+        id: 2,
+        icon: <Find width={12} height={12} />,
+        text: '发现',
+        url: 'pages/hot/indexe',
       },
       {
-        pagePath: '/pages/cart/index',
-        selectedIconPath: '../images/tabbar_cart_on.png',
-        iconPath: '../images/tabbar_cart.png',
-        text: '购物车'
+        id: 3,
+        icon: <Cart width={12} height={12} />,
+        text: '购物车',
+        url: 'pages/cart/index',
       },
       {
-        pagePath: '/pages/my/index',
-        selectedIconPath: '../images/tabbar_my_on.png',
-        iconPath: '../images/tabbar_my.png',
-        text: '个人中心'
-      }
+        id: 4,
+        icon: <My width={12} height={12} />,
+        text: '我的',
+        url: 'pages/my/index',
+      },
     ]
+  });
+
+  const onSwitch = (e) => {
+    setSelectedTab(e)
+    if (e == 0) {
+      Taro.switchTab({
+        url: '/pages/index/index'
+      })
+    } else if (e == 1) {
+      Taro.switchTab({
+        url: '/pages/cate/index'
+      })
+    } else if (e == 2) {
+      Taro.switchTab({
+        url: '/pages/hot/index'
+      })
+    } else if (e == 3) {
+      Taro.switchTab({
+        url: '/pages/cart/index'
+      })
+    } else if (e == 4) {
+      Taro.switchTab({
+        url: '/pages/my/index'
+      })
+    }
   }
 
-  switchTab(index, url) {
-    this.setSelected(index)
-    Taro.switchTab({ url })
-  }
-
-  setSelected(idx: number) {
-    this.setState({
-      selected: idx
-    })
-  }
-
-  render() {
-    const { list, selected, color, selectedColor } = this.state
-
-    return (
-      <CoverView className='tab-bar'>
-        {list.map((item, index) => {
+  return (
+    <>
+      <Tabbar value={selectedTab} onSwitch={onSwitch} >
+        {tabData.list.map(item => {
           return (
-            <CoverView key={index} className='tab-bar-item'
-              style={index === 2 ? { height: '63px' } : {}}
-              onClick={this.switchTab.bind(this, index, item.pagePath)}>
-              <CoverImage src={selected === index ? item.selectedIconPath : item.iconPath} />
-              <CoverView style={{ color: selected === index ? selectedColor : color }}>{item.text}</CoverView>
-            </CoverView>
+            <Tabbar.Item title={item.text} key={item.id} icon={item.icon} />
           )
         })}
-      </CoverView>
-    )
-  }
+      </Tabbar>
+    </>
+  )
 }

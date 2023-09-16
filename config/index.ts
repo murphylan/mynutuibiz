@@ -1,7 +1,16 @@
 const config = {
   projectName: 'mynutuibiz',
   date: '2023-9-9',
-  designWidth: 750,
+  // 开启 HTML 插件
+  plugins: ['@tarojs/plugin-html'],
+  designWidth(input) {
+    // 配置 NutUI 375 尺寸
+    if (input?.file?.replace(/\\+/g, '/').indexOf('@nutui') > -1) {
+      return 375
+    }
+    // 全局使用 Taro 默认的 750 尺寸
+    return 750
+  },
   deviceRatio: {
     640: 2.34 / 2,
     750: 1,
@@ -10,7 +19,6 @@ const config = {
   },
   sourceRoot: 'src',
   outputRoot: 'dist',
-  plugins: ['@tarojs/plugin-html'],
   defineConstants: {
   },
   copy: {

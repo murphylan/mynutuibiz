@@ -5,7 +5,7 @@ import Taro from '@tarojs/taro';
 import UserContext from '../UserContext';
 import './index.scss';
 
-export default function index() {
+const CustomTabBar = () => {
 
   const { selectedTab, setSelectedTab } = useContext(UserContext);
 
@@ -16,31 +16,31 @@ export default function index() {
         id: 0,
         icon: <Home {...iconSize} />,
         text: '首页',
-        url: '/pages/index/index',
+        pagePath: '/pages/index/index',
       },
       {
         id: 1,
         icon: <Category {...iconSize} />,
         text: '分类',
-        url: '/pages/cate/index',
+        pagePath: '/pages/cate/index',
       },
       {
         id: 2,
         icon: <Find {...iconSize} />,
         text: '发现',
-        url: '/pages/hot/index',
+        pagePath: '/pages/hot/index',
       },
       {
         id: 3,
         icon: <Cart {...iconSize} />,
         text: '购物车',
-        url: '/pages/cart/index',
+        pagePath: '/pages/cart/index',
       },
       {
         id: 4,
         icon: <My {...iconSize} />,
         text: '我的',
-        url: '/pages/my/index',
+        pagePath: '/pages/my/index',
       },
     ]
   });
@@ -48,7 +48,7 @@ export default function index() {
   const onSwitch = (e) => {
     setSelectedTab(e)
     Taro.switchTab({
-      url: tabData.list[e].url
+      url: tabData.list[e].pagePath
     })
   }
 
@@ -62,3 +62,9 @@ export default function index() {
     </Tabbar>
   )
 }
+
+CustomTabBar.options = {
+  addGlobalClass: true,
+}
+
+export default CustomTabBar;

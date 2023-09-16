@@ -1,49 +1,27 @@
-import React from "react";
-import { Card, Price, Tag } from '@nutui/nutui-react-taro';
+import React, { useState } from "react";
+import { Swiper, Image } from '@nutui/nutui-react-taro';
 import './index.scss'
 
 const Index = () => {
-  const state = {
-    src:
-      '//img10.360buyimg.com/n2/s240x240_jfs/t1/210890/22/4728/163829/6163a590Eb7c6f4b5/6390526d49791cb9.jpg!q70.jpg',
-    title: '【活蟹】湖塘煙雨 阳澄湖大闸蟹公4.5两 母3.5两 4对8只 鲜活生鲜螃蟹现货水产礼盒海鲜水',
-    price: '388',
-    vipPrice: '378',
-    shopDescription: '自营',
-    delivery: '厂商配送',
-    shopName: '阳澄湖大闸蟹自营店>',
-  }
-  const wordStyles = {
-    padding: '0 5px',
-    borderRadius: '1px',
-    fontSize: '10px',
-    height: '15px',
-    lineHeight: '15px',
-    color: '#999',
-    backgroundColor: '#f2f2f7',
-    marginRight: '5px',
-  }
+  const [initPage8, setInitPage8] = useState(0)
+  const list = [
+    'https://storage.360buyimg.com/jdc-article/NutUItaro34.jpg',
+    'https://storage.360buyimg.com/jdc-article/NutUItaro2.jpg',
+    'https://storage.360buyimg.com/jdc-article/welcomenutui.jpg',
+    'https://storage.360buyimg.com/jdc-article/fristfabu.jpg'
+  ]
   return (
-    <Card
-      src={state.src}
-      title={state.title}
-      price={state.price}
-      vipPrice={state.vipPrice}
-      shopDescription={state.shopDescription}
-      delivery={state.delivery}
-      shopName={state.shopName}
-      description={
-        < div className="search_prolist_attr"
-          style={{
-            display: 'inline-flex',
-            margin: '3px 0 1px',
-            height: '15px'
-          }}>
-          {['鲜活', '礼盒', '国产'].map((item) => {
-            return (
-              <span style={wordStyles} className="word" key={item} >{item}</span>)
-          })}
-        </div>} />
-  );
+    <>
+      <Swiper defaultValue={0} loop previousMargin="0px" nextMargin="0px">
+        {list.map((item) => {
+          return (
+            <Swiper.Item key={item}>
+              <Image src={item} width="100%" height="340rpx;" />
+            </Swiper.Item>
+          )
+        })}
+      </Swiper>
+    </>
+  )
 }
 export default Index;

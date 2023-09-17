@@ -3,7 +3,6 @@ export default defineAppConfig({
     'pages/index/index',
     'pages/cate/index',
     'pages/hot/index',
-    'pages/cart/index',
     'pages/my/index'
   ],
   window: {
@@ -25,15 +24,11 @@ export default defineAppConfig({
       },
       {
         pagePath: 'pages/cate/index',
-        text: '分类'
+        text: '大数据分析'
       },
       {
         pagePath: 'pages/hot/index',
-        text: '热门'
-      },
-      {
-        pagePath: 'pages/cart/index',
-        text: '购物车'
+        text: '解决方案'
       },
       {
         pagePath: 'pages/my/index',

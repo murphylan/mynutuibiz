@@ -4,7 +4,7 @@ export default function Index() {
 
   return (
     <View className='index'>
-      <Text>我是个人中心！</Text>
+      <Text>公司简介</Text>
     </View>
   )
 }

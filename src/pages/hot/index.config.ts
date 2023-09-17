@@ -1,4 +1,4 @@
 export default definePageConfig({
-  navigationBarTitleText: '热门',
+  navigationBarTitleText: '解决方案',
   "usingComponents": {}
 })

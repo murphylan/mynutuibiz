@@ -1,4 +1,4 @@
 export default definePageConfig({
-  navigationBarTitleText: '分类页',
+  navigationBarTitleText: '大数据分析',
   "usingComponents": {}
 })

@@ -21,25 +21,19 @@ const CustomTabBar = () => {
       {
         id: 1,
         icon: <Category {...iconSize} />,
-        text: '分类',
+        text: '大数据分析',
         pagePath: '/pages/cate/index',
       },
       {
         id: 2,
         icon: <Find {...iconSize} />,
-        text: '发现',
+        text: '解决方案',
         pagePath: '/pages/hot/index',
       },
       {
         id: 3,
-        icon: <Cart {...iconSize} />,
-        text: '购物车',
-        pagePath: '/pages/cart/index',
-      },
-      {
-        id: 4,
         icon: <My {...iconSize} />,
-        text: '我的',
+        text: '公司简介',
         pagePath: '/pages/my/index',
       },
     ]

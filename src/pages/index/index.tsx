@@ -45,7 +45,7 @@ const Index = () => {
             })}
           </Swiper>
           <Grid columns="4">
-            <Grid.Item text="事件分析">
+            <Grid.Item text="业务范围">
               <Dongdong width={10} height={10} />
             </Grid.Item>
             <Grid.Item text="分析模型">
@@ -54,7 +54,7 @@ const Index = () => {
             <Grid.Item text="用户分析">
               <Dongdong width={20} height={20} color="#478EF2" />
             </Grid.Item>
-            <Grid.Item text="分析模型">
+            <Grid.Item text="解决方案">
               <Dongdong color="red" />
             </Grid.Item>
           </Grid>

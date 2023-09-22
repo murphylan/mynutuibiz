@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Swiper, Image, Cell, Collapse, Ellipsis, Divider } from '@nutui/nutui-react-taro';
+import { Swiper, Image, Cell, Collapse, Ellipsis, Divider, Tabs } from '@nutui/nutui-react-taro';
 import { View } from "@tarojs/components";
+import './index.scss';
 
 const Index = () => {
 
@@ -10,6 +11,9 @@ const Index = () => {
     'https://storage.360buyimg.com/jdc-article/welcomenutui.jpg',
     'https://storage.360buyimg.com/jdc-article/fristfabu.jpg'
   ];
+
+
+  const [tab1value, setTab1value] = useState<string | number>('0');
 
   const [stepState, setStepState] = useState<any>({
     current1: 1,
@@ -105,6 +109,20 @@ const Index = () => {
           )
         })}
       </Swiper>
+      <Tabs value={tab1value} onChange={(value) => {
+        setTab1value(value)
+      }} activeType="smile">
+        <Tabs.TabPane title="业务范围">
+          <Cell>
+            <View className="border-left">大数据分析与营销科技解决方案专家</View>
+          </Cell>
+          Tab 1
+
+        </Tabs.TabPane>
+        <Tabs.TabPane title="行为分析"> Tab 2 </Tabs.TabPane>
+        <Tabs.TabPane title="需求分析"> Tab 3 </Tabs.TabPane>
+        <Tabs.TabPane title="成功案例"> Tab 4 </Tabs.TabPane>
+      </Tabs>
       <Cell>
         <View className="border-left">用户行为分析是为了解决以下业务痛点</View>
       </Cell>

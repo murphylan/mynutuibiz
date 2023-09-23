@@ -6,6 +6,7 @@ import {
 } from '@nutui/nutui-react-taro';
 import { Dongdong, DownArrow } from '@nutui/icons-react-taro'
 import './index.scss'
+import Taro from "@tarojs/taro";
 
 const Index = () => {
   const list = [
@@ -101,7 +102,22 @@ const Index = () => {
               )
             })}
           </Swiper>
-          <Grid columns="4">
+          <Grid columns="4" onClick={(itme) => {
+            console.log(itme);
+            Taro.navigateTo({
+              url: '/pages/business-scope/index',
+              events: {
+                // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
+                acceptDataFromOpenedPage: function (data) {
+                  console.log(data)
+                },
+              },
+              success: function (res) {
+                // 通过eventChannel向被打开页面传送数据
+                res.eventChannel.emit('acceptDataFromOpenerPage', { data: 'test' })
+              }
+            })
+          }}>
             <Grid.Item text="业务范围">
               <Dongdong width={10} height={10} />
             </Grid.Item>

@@ -33,6 +33,9 @@ const config = {
     prebundle: { enable: false }
   },
   mini: {
+    miniCssExtractPluginOption: {
+      ignoreOrder: true //忽略css文件引入顺序
+    },
     postcss: {
       pxtransform: {
         enable: true,

@@ -4,7 +4,8 @@ export default defineAppConfig({
     'pages/cate/index',
     'pages/hot/index',
     'pages/my/index',
-    'pages/business-scope/index'
+    'pages/business-scope/index',
+    'pages/model/index'
   ],
   window: {
     backgroundTextStyle: 'light',

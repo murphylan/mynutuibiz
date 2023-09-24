@@ -1,12 +1,21 @@
-import React, { useState } from "react";
-import { View } from "@tarojs/components";
-import {
-  Swiper, Image, Grid, Space, ConfigProvider, Collapse,
-  Cell, Ellipsis, Card, Divider,
-} from '@nutui/nutui-react-taro';
-import { Dongdong, DownArrow } from '@nutui/icons-react-taro'
-import './index.scss'
+import { useState } from "react";
 import Taro from "@tarojs/taro";
+import { Dongdong } from '@nutui/icons-react-taro';
+import {
+  Card,
+  Cell,
+  Collapse,
+  ConfigProvider,
+  Divider,
+  Ellipsis,
+  Grid,
+  Image,
+  Space,
+  Swiper,
+} from '@nutui/nutui-react-taro';
+import { View } from "@tarojs/components";
+import { content, state } from "../../data/home"; // 导入 contentItems
+import './index.scss';
 
 const Index = () => {
   const list = [
@@ -19,71 +28,45 @@ const Index = () => {
   const onChange = (activeName, name, status) => {
     setActiveName(activeName)
   };
-  const content =
-    'NutUI3.0上线后我们研发团队也在不断的优化、测试、使用、迭代 Vue3 的相关组件，但是在跨端小程序的开发过程中，发现没有合适的组件库可以支持多端开发。为了填补这一空白，同时为了优化开发者体验，让 NutUI 能够为更多的开发者带来便利，我们决定在 NutUI 中增加小程序多端适配的能力。'
 
-  const state = [
-    {
-      src:
-        '//img10.360buyimg.com/n2/s240x240_jfs/t1/210890/22/4728/163829/6163a590Eb7c6f4b5/6390526d49791cb9.jpg!q70.jpg',
-      title: '我们善于分析用户行为，通过数据驱动的方法改进产品，确保用户满意度。',
-      price: '388',
-      vipPrice: '378',
-      shopDescription: '自营',
-      delivery: '厂商配送',
-      shopName: '大数据分析落地应用',
-    },
-    {
-      src:
-        '//img10.360buyimg.com/n2/s240x240_jfs/t1/210890/22/4728/163829/6163a590Eb7c6f4b5/6390526d49791cb9.jpg!q70.jpg',
-      title: '基于我们的大数据应用平台，用户可开发企业上层应用，激发数据的潜在价值。',
-      price: '388',
-      vipPrice: '378',
-      shopDescription: '自营',
-      delivery: '厂商配送',
-      shopName: '数据库可视化、个性化服务',
-    },
-    {
-      src:
-        '//img10.360buyimg.com/n2/s240x240_jfs/t1/210890/22/4728/163829/6163a590Eb7c6f4b5/6390526d49791cb9.jpg!q70.jpg',
-      title: '详细了解企业现状，洞察需求，为数字化转型提供明确方向和策略规划。',
-      price: '388',
-      vipPrice: '378',
-      shopDescription: '自营',
-      delivery: '厂商配送',
-      shopName: '阳澄湖大闸蟹自营店>',
-    },
-    {
-      src:
-        '//img10.360buyimg.com/n2/s240x240_jfs/t1/210890/22/4728/163829/6163a590Eb7c6f4b5/6390526d49791cb9.jpg!q70.jpg',
-      title: '根据用户提出的需求，提供个性化数字化解决方案，精准满足业务挑战和目标。',
-      price: '388',
-      vipPrice: '378',
-      shopDescription: '自营',
-      delivery: '厂商配送',
-      shopName: '阳澄湖大闸蟹自营店>',
-    },
-    {
-      src:
-        '//img10.360buyimg.com/n2/s240x240_jfs/t1/210890/22/4728/163829/6163a590Eb7c6f4b5/6390526d49791cb9.jpg!q70.jpg',
-      title: '确保解决方案成功实施，提供持续支持，持久陪伴，助力业务增长。',
-      price: '388',
-      vipPrice: '378',
-      shopDescription: '自营',
-      delivery: '厂商配送',
-      shopName: '阳澄湖大闸蟹自营店>',
-    },
-    {
-      src:
-        '//img10.360buyimg.com/n2/s240x240_jfs/t1/210890/22/4728/163829/6163a590Eb7c6f4b5/6390526d49791cb9.jpg!q70.jpg',
-      title: '关注客户满意度，不断升级数字化能力，实现长期共赢合作。',
-      price: '388',
-      vipPrice: '378',
-      shopDescription: '自营',
-      delivery: '厂商配送',
-      shopName: '阳澄湖大闸蟹自营店>',
-    }
-  ];
+  // 生成多个 Card 组件
+  const generateCards = (items) => {
+    return items.map((item, index) => (
+      <Card
+        key={index}
+        src={item.src}
+        title={item.title}
+        price={item.price}
+        vipPrice={item.vipPrice}
+        shopDescription={item.shopDescription}
+        delivery={item.delivery}
+        shopName={item.shopName}
+        tag={<div>{item.tag}</div>}
+        onClick={(e) => {
+          handleCardClick(item, e);
+        }}
+      />
+    ));
+  };
+
+  const handleCardClick = (item, e) => {
+    console.log(item); // 在这里可以访问到点击的卡片的信息
+    console.log(e); // 如果需要访问事件对象，也可以在参数中添加
+
+    Taro.navigateTo({
+      url: '/pages/model/index',
+      events: {
+        // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
+        acceptDataFromOpenedPage: function (data) {
+          console.log(data)
+        },
+      },
+      success: function (res) {
+        // 通过 eventChannel 向被打开页面传送数据
+        res.eventChannel.emit('acceptDataFromOpenerPage', { data: 'test' })
+      }
+    })
+  };
 
   return (
     <>
@@ -113,7 +96,7 @@ const Index = () => {
                 },
               },
               success: function (res) {
-                // 通过eventChannel向被打开页面传送数据
+                // 通过 eventChannel 向被打开页面传送数据
                 res.eventChannel.emit('acceptDataFromOpenerPage', { data: 'test' })
               }
             })
@@ -134,8 +117,6 @@ const Index = () => {
         </Space>
       </ConfigProvider>
 
-
-
       <Cell>
         <View className="border-left">大数据分析与数据可视化解决方案专家</View>
       </Cell>
@@ -146,26 +127,7 @@ const Index = () => {
           }}
         >
           <Space direction="vertical">
-            <Card
-              src={state[0].src}
-              title={state[0].title}
-              price={state[0].price}
-              vipPrice={state[0].vipPrice}
-              shopDescription={state[0].shopDescription}
-              delivery={state[0].delivery}
-              shopName={state[0].shopName}
-              tag={<div> 八大分析模型，灵活组合。 </div>}>
-            </Card>
-            <Card
-              src={state[1].src}
-              title={state[1].title}
-              price={state[1].price}
-              vipPrice={state[1].vipPrice}
-              shopDescription={state[1].shopDescription}
-              delivery={state[1].delivery}
-              shopName={state[1].shopName}
-              tag={<div> 丰富UI组件，提升用户体验 </div>}>
-            </Card>
+            {generateCards(state.slice(0, 2))}
           </Space>
         </ConfigProvider>
       </Cell>
@@ -179,46 +141,7 @@ const Index = () => {
           }}
         >
           <Space direction="vertical">
-            <Card
-              src={state[2].src}
-              title={state[2].title}
-              price={state[2].price}
-              vipPrice={state[2].vipPrice}
-              shopDescription={state[2].shopDescription}
-              delivery={state[2].delivery}
-              shopName={state[2].shopName}
-              tag={<div> 业务全面评估 </div>}>
-            </Card>
-            <Card
-              src={state[3].src}
-              title={state[3].title}
-              price={state[3].price}
-              vipPrice={state[3].vipPrice}
-              shopDescription={state[3].shopDescription}
-              delivery={state[3].delivery}
-              shopName={state[3].shopName}
-              tag={<div> 专属解决方案 </div>}>
-            </Card>
-            <Card
-              src={state[4].src}
-              title={state[4].title}
-              price={state[4].price}
-              vipPrice={state[4].vipPrice}
-              shopDescription={state[4].shopDescription}
-              delivery={state[4].delivery}
-              shopName={state[4].shopName}
-              tag={<div> 落地与陪跑 </div>}>
-            </Card>
-            <Card
-              src={state[5].src}
-              title={state[5].title}
-              price={state[5].price}
-              vipPrice={state[5].vipPrice}
-              shopDescription={state[5].shopDescription}
-              delivery={state[5].delivery}
-              shopName={state[5].shopName}
-              tag={<div> 助力客户持续成功 </div>}>
-            </Card>
+            {generateCards(state.slice(2))}
           </Space>
         </ConfigProvider>
       </Cell>
@@ -240,8 +163,8 @@ const Index = () => {
           文本
         </Divider>
       </Cell>
-
     </>
   )
 }
+
 export default Index;
